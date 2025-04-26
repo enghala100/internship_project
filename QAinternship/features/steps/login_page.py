@@ -11,4 +11,5 @@ def open_main_page(context):
 
 @when('Log in to the page')
 def login(context):
-    context.app.login_page.login('eng.hala333@gmail.com','*******')
+    sleep(5)
+    context.app.login_page.login('eng.hala333@gmail.com','Momlife123!')

@@ -12,5 +12,5 @@ class SettingPage(Page):
      self.click(*self.CONNECT_BTN)
 
  def get_menu_options_count(self):
-
-        return len(self.driver.find_elements(*self.SETTINGS_MENU_OPTIONS))
+     self.wait_until_visible(*self.SETTINGS_MENU_OPTIONS)
+     return len(self.driver.find_elements(*self.SETTINGS_MENU_OPTIONS))

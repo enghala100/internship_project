@@ -6,5 +6,5 @@ from time import sleep
 
 @when('Click on the settings option')
 def click_settings(context):
-    context.app.main_page.click_settings()
+  context.app.main_page.click_settings()
 

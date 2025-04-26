@@ -8,4 +8,6 @@ class MainPage(Page):
 
 
  def click_settings(self):
+
+     self.wait_until_clickable(*self.SETTING_BTN)
      self.click(*self.SETTING_BTN)

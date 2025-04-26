@@ -13,6 +13,9 @@ class LogInPage(Page):
 
 
  def login(self,email,password):
+  self.wait_until_visible(*self.EMAIL_FIELD)
   self.input_text(email,*self.EMAIL_FIELD)
+  self.wait_until_visible(*self.PASSWORD_FIELD)
   self.input_text(password,*self.PASSWORD_FIELD)
+  self.wait_until_clickable(*self.CONTINUE_BTN)
   self.click(*self.CONTINUE_BTN)
