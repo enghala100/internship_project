@@ -15,10 +15,8 @@ def verify_page_connect_btn(context):
 
 @then('Verify there are {options_amount}options for the settings')
 def verify_page_options(context, options_amount):
-    options_amount = int(options_amount)  # Convert from string to integer
-    actual_options_count = context.app.setting_page.get_menu_options_count()
-    assert actual_options_count >= options_amount, (
-            f"Expected {options_amount} options, but found {actual_options_count}")
+    context.app.setting_page.verify_page_options(options_amount)
+
 
 
 
