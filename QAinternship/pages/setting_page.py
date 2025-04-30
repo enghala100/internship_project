@@ -9,7 +9,7 @@ class SettingPage(Page):
      self.verify_partial_url(expected_url)
 
  def verify_connect_btn(self):
-     self.click(*self.CONNECT_BTN)
+     self.wait_until_visible(*self.CONNECT_BTN)
 
 
 
