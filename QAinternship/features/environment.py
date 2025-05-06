@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from app.application import Application
 
 
+
 # Command to run tests with Allure & Behave:
  # behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/setting.feature
 
@@ -14,9 +15,19 @@ def browser_init(context, scenario_name):
     """
     :param context: Behave context
     """
-    driver_path = ChromeDriverManager().install()
-    service = Service(driver_path)
-    context.driver = webdriver.Chrome(service=service)
+    ##mobile##
+    # mobile_emulation = {"deviceName": "Nexus 5"}  # You can change to iPhone X, Galaxy S5, etc.
+    #
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+    #
+    # service = Service(ChromeDriverManager().install())
+    # context.driver = webdriver.Chrome(service=service, options=chrome_options)
+
+#chrome#
+    # driver_path = ChromeDriverManager().install()
+    # service = Service(driver_path)
+    # context.driver = webdriver.Chrome(service=service)
 
    #Firefox
    #  driver_path = GeckoDriverManager().install()
@@ -48,7 +59,35 @@ def browser_init(context, scenario_name):
 #     context.driver = webdriver.Remote(command_executor=url, options=options)
 
 
-    context.driver.maximize_window()
+###BROWSERSTACK for mob####
+    bs_user = 'halamoh_2RdYjc'
+    bs_key = 'Z7kqsVSdPE3BeWaDrZUB'
+    url = f"http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub"
+
+
+    options = webdriver.ChromeOptions()
+
+    bstack_options = {
+        "osVersion": "11.0",
+        "deviceName": "Google Pixel 5",
+        "realMobile": "true",
+        "local": "false",
+        "userName": bs_user,
+        "accessKey": bs_key,
+        "sessionName": scenario_name
+    }
+
+    options.set_capability("bstack:options", bstack_options)
+    options.set_capability("browserName", "Chrome")
+
+    context.driver = webdriver.Remote(
+        command_executor=url,
+        options=options
+    )
+
+
+
+    # context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, timeout=15)#20 so it can work in headless mood
     context.app = Application(context.driver)
@@ -72,5 +111,5 @@ def after_step(context, step):
         print('\nStep failed: ', step)
 
 
-def after_scenario(context, scenario):
-    context.driver.quit()
+# def after_scenario(context, scenario):
+#     context.driver.quit()
